@@ -1,0 +1,102 @@
+[Error] Failed to load resource: the server responded with a status of 401 () (visits, line 0)
+[Error] ❌ Backend returned error:
+	(anonyme Funktion) (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:9479)
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	authenticatedFetch (supabase-client.ts:54)
+[Error] Status:
+	(anonyme Funktion) (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:9479)
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	authenticatedFetch (supabase-client.ts:55)
+[Error] Response text:
+	(anonyme Funktion) (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:9479)
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	authenticatedFetch (supabase-client.ts:56)
+[Error] Error data:
+	(anonyme Funktion) (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:9479)
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	authenticatedFetch (supabase-client.ts:59)
+[Error] ❌ Error fetching visits:
+	(anonyme Funktion) (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:9479)
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	(anonyme Funktion) (VisitsContext.tsx:94)
+[Error] Failed to load resource: the server responded with a status of 401 () (visits, line 0)
+[Error] Failed to load resource: the server responded with a status of 401 () (visits, line 0)
+[Error] ❌ Backend returned error:
+	(anonyme Funktion) (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:9479)
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	authenticatedFetch (supabase-client.ts:54)
+[Error] Status:
+	(anonyme Funktion) (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:9479)
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	authenticatedFetch (supabase-client.ts:55)
+[Error] Response text:
+	(anonyme Funktion) (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:9479)
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	authenticatedFetch (supabase-client.ts:56)
+[Error] Error data:
+	(anonyme Funktion) (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:9479)
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	authenticatedFetch (supabase-client.ts:59)
+[Error] ❌ Error fetching visits:
+	(anonyme Funktion) (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:9479)
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	(anonyme Funktion) (VisitsContext.tsx:94)
+[Error] ❌ Backend returned error:
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	error (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:54)
+[Error] Status: – 401
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	error (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:55)
+[Error] Response text: – "{\"code\":401,\"message\":\"Invalid JWT\"}"
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	error (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:56)
+[Error] Error data: – Object
+Object
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	error (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:59)
+[Error] ❌ Error fetching visits: – Error: Unauthorized
+Error: Unauthorized
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	error (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:31385)
+	(anonyme Funktion) (VisitsContext.tsx:94)
+[Error] Blocked a frame with origin "https://75763503-471a-4f15-879d-390a1e986b75-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+> Ausgewähltes Element
+< <div class="bg-white rounded-3xl shadow-xl p-8" data-fg-dodj11="51.194:65.2007:/src/app/screens/LoginScreen.tsx:80:9:2542:3390:e:div:etetxtetxtetxte" data-fgid-dodj11=":rq3:">…</div>
+[Error] Source Map-Ladefehler (x11)
+[Error] Failed to load resource: the server responded with a status of 403 () (sonner.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (chunk-GCYPUZQJ.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (motion_react.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (react-simple-maps.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (@supabase_supabase-js.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (react_base.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (recharts.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (react-router.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (react_jsx_dev_runtime.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (lucide-react.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (date-fns.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 401 () (visits, line 0)
+[Error] ❌ Backend returned error:
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	error (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:54)
+[Error] Status: – 401
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	error (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:55)
+[Error] Response text: – "{\"code\":401,\"message\":\"Invalid JWT\"}"
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	error (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:56)
+[Error] Error data: – {code: 401, message: "Invalid JWT"}
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	error (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:59)
+[Error] ❌ Error fetching visits: – Error: Unauthorized — https://app-lvisa2mqax5trpem6fj7qj4244yue6omhtcx2x…y-c.figma.site/src/app/contexts/VisitsContext.tsx:79
+Error: Unauthorized — https://app-lvisa2mqax5trpem6fj7qj4244yue6omhtcx2x…y-c.figma.site/src/app/contexts/VisitsContext.tsx:79
+	r (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:17:102316)
+	error (code_components_preview_iframe-f7eb2aa617f22c1a.min.js.br:90:31385)
+	(anonyme Funktion) (VisitsContext.tsx:94)

@@ -1,0 +1,80 @@
+[Error] ❌ Signup error: – Error: Signup failed
+Error: Signup failed
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:135)
+[Error] Source Map-Ladefehler (x30)
+[Error] Failed to load resource: the server responded with a status of 403 () (react_jsx_dev_runtime.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (motion_react.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (chunk-J2NIEIGX.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (lucide-react.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (chunk-NBJOCWSM.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (date-fns.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (class-variance-authority.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (tailwind-merge.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (@radix-ui_react-label.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (chunk-DEX2RCYB.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (react_base.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (react-router.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (@supabase_supabase-js.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (recharts.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (sonner.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (chunk-DEX2RCYB.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (tailwind-merge.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (chunk-J2NIEIGX.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (@radix-ui_react-label.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (date-fns.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (chunk-NBJOCWSM.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (lucide-react.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (recharts.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (react_jsx_dev_runtime.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (react-router.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (class-variance-authority.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (motion_react.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (sonner.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (react_base.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (@supabase_supabase-js.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 404 () (a2c83db80039baa586193236c6ed49a7c24e7b6ef59b8b23d4771c8d95c6334d, line 0)
+[Error] Could not play generation complete sound: – NotAllowedError: The request is not allowed by the user agent or the platform in the current context, possibly because the user denied permission.
+NotAllowedError: The request is not allowed by the user agent or the platform in the current context, possibly because the user denied permission.
+	(anonyme Funktion) (vendor-core-83c17265f2588e9e.min.js.br:54:12597)
+	(anonyme Funktion) (299-8ef955b90986f3a2.min.js.br:3:69137)
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Failed to load resource: the server responded with a status of 400 () (signup, line 0)
+[Error] ❌ Signup error: – Error: Email already registered with different password
+Error: Email already registered with different password
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:144)
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Failed to load resource: the server responded with a status of 401 () (me, line 0)
+[Error] ❌ Failed to fetch user profile
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:92)
+[Error] ❌ Login error: – Error: Failed to fetch user profile
+Error: Failed to fetch user profile
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:102)
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Failed to load resource: the server responded with a status of 401 () (login, line 0)
+[Error] ❌ Login error: – Error: Invalid login credentials
+Error: Invalid login credentials
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:102)
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Failed to load resource: the server responded with a status of 401 () (me, line 0)
+[Error] ❌ Failed to fetch user profile after signup
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:134)
+[Error] ❌ Signup error: – Error: Failed to fetch user profile
+Error: Failed to fetch user profile
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:144)

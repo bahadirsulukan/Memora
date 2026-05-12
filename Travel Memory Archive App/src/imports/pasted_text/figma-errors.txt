@@ -1,0 +1,64 @@
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Failed to load resource: the server responded with a status of 401 () (signup, line 0)
+[Error] ❌ Signup failed. Status: – 401
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:103)
+[Error] ❌ Error details: – Object
+Object
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:104)
+[Error] ❌ Signup error: – Error: Signup failed
+Error: Signup failed
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:123)
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Failed to load resource: the server responded with a status of 401 () (login, line 0)
+[Error] ❌ Login error: – Error: Login failed
+Error: Login failed
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:88)
+[Error] Failed to load resource: Die Netzwerkverbindung wurde unterbrochen. (monitor, line 0)
+[Error] Failed to load resource: Die Netzwerkverbindung wurde unterbrochen. (keep-alive, line 0)
+[Error] Failed to load resource: Die Netzwerkverbindung wurde unterbrochen. (monitor, line 0)
+[Error] Failed to load resource: Die Netzwerkverbindung wurde unterbrochen. (keep-alive, line 0)
+[Error] Failed to load resource: Die Netzwerkverbindung wurde unterbrochen. (metrics_batched, line 0)
+[Error] Failed to load resource: Die Netzwerkverbindung wurde unterbrochen. (monitor, line 0)
+[Error] Failed to load resource: Die Netzwerkverbindung wurde unterbrochen. (performance.multiplayer.round_trip_time, line 0)
+[Error] Could not play generation complete sound: – NotAllowedError: The request is not allowed by the user agent or the platform in the current context, possibly because the user denied permission.
+NotAllowedError: The request is not allowed by the user agent or the platform in the current context, possibly because the user denied permission.
+	(anonyme Funktion) (vendor-core-83c17265f2588e9e.min.js.br:54:12597)
+	(anonyme Funktion) (299-8ef955b90986f3a2.min.js.br:3:69137)
+[Error] WebSocket connection to 'wss://www.figma.com/api/multiplayer/mAdIlSG7qvdNiQ4VFCw7OS?role=editor&tracking_session_id=zUTd4wU4DWWAs7Ey&version=151&recentReload=0&file-load-streaming-compression=&user-id=1503309699797165534&client_release=212afd3611bdd7cbe6e0cc856b8085d6f3da369b&reconnect-key=843a7b0fbcc4d4739d2865c76714ce7ce10af401&reconnect-sequence-number=326&initialFileVersion=106&previousLoadMode=full&incremental-loading-validation=0' failed: The network connection was lost.
+[Error] Cross-origin redirection to https://i2.wp.com/s3-alpha.figma.com/static/user_b_v2.png?ssl=1 denied by Cross-Origin Resource Sharing policy: Origin https://www.figma.com is not allowed by Access-Control-Allow-Origin. Status code: 302
+[Error] Cannot load image https://www.gravatar.com/avatar/606a17917abf79b8976b298a23a9f6e9?size=240&default=https%3A%2F%2Fs3-alpha.figma.com%2Fstatic%2Fuser_b_v2.png?c=1 due to access control checks.
+[Error] Failed to load resource: Cross-origin redirection to https://i2.wp.com/s3-alpha.figma.com/static/user_b_v2.png?ssl=1 denied by Cross-Origin Resource Sharing policy: Origin https://www.figma.com is not allowed by Access-Control-Allow-Origin. Status code: 302 (606a17917abf79b8976b298a23a9f6e9, line 0)
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Blocked a frame with origin "https://1b60d21b-f631-4686-a9a8-799a66ffb5ba-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Failed to load resource: the server responded with a status of 401 () (signup, line 0)
+[Error] ❌ Signup error: – Error: Signup failed
+Error: Signup failed
+	r (code_components_preview_iframe-c57f661b337ed852.min.js.br:17:102316)
+	error (code_components_preview_iframe-c57f661b337ed852.min.js.br:90:31385)
+	(anonyme Funktion) (AuthContext.tsx:135)
+[Error] Source Map-Ladefehler (x15)
+[Error] Failed to load resource: the server responded with a status of 403 () (react_jsx_dev_runtime.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (motion_react.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (chunk-J2NIEIGX.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (lucide-react.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (chunk-NBJOCWSM.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (date-fns.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (class-variance-authority.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (tailwind-merge.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (@radix-ui_react-label.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (chunk-DEX2RCYB.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (react_base.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (react-router.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (@supabase_supabase-js.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (recharts.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (sonner.js.map, line 0)

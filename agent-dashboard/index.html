@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memora — Agent Colony HQ</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Inter:wght@400;500;600;700&display=swap');
+    :root {
+      --bg: #0a0e1a; --panel: #111827; --border: #1f2d45;
+      --green: #22c55e; --amber: #f59e0b; --red: #ef4444;
+      --blue: #3b82f6; --purple: #8b5cf6; --cyan: #06b6d4;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:#e2e8f0; font-family:'Inter',sans-serif; min-height:100vh; overflow-x:hidden; }
+    .px { font-family:'Press Start 2P',monospace; }
+
+    /* TOPBAR */
+    .topbar { background:#070b14; border-bottom:2px solid var(--border); padding:10px 20px; display:flex; align-items:center; justify-content:space-between; }
+    .topbar-left { display:flex; align-items:center; gap:12px; }
+    .logo { font-size:11px; color:#22c55e; }
+    .logo span { color:#94a3b8; font-size:9px; display:block; margin-top:2px; }
+    .topbar-right { display:flex; align-items:center; gap:20px; font-size:10px; color:#64748b; }
+    .clock { color:var(--green); font-size:10px; }
+    .api-status { display:flex; align-items:center; gap:5px; font-size:9px; padding:4px 8px; border-radius:4px; border:1px solid; }
+    .api-ok     { color:var(--green); border-color:#16a34a44; background:#052e16; }
+    .api-no     { color:var(--amber); border-color:#d9770644; background:#451a03; }
+
+    /* LAYOUT */
+    .layout { display:flex; height:calc(100vh - 45px); }
+
+    /* SIDEBAR */
+    .sidebar { width:220px; min-width:220px; background:#070b14; border-right:2px solid var(--border); display:flex; flex-direction:column; overflow:hidden; }
+    .sidebar-title { font-size:8px; color:#475569; padding:12px 14px 8px; border-bottom:1px solid var(--border); letter-spacing:1px; }
+    .sidebar-filters { display:flex; gap:4px; padding:8px 10px; border-bottom:1px solid var(--border); }
+    .filter-btn { font-size:8px; padding:3px 7px; border-radius:3px; border:1px solid var(--border); background:transparent; color:#64748b; cursor:pointer; transition:all .2s; }
+    .filter-btn.active { background:var(--green); color:#000; border-color:var(--green); }
+    .filter-btn:hover { border-color:var(--green); color:var(--green); }
+    .agent-list { overflow-y:auto; flex:1; }
+    .agent-row { display:flex; align-items:center; gap:8px; padding:9px 12px; border-bottom:1px solid #0d1525; cursor:pointer; transition:background .15s; }
+    .agent-row:hover { background:#111827; }
+    .agent-row.selected { background:#1a2540; border-left:3px solid var(--green); }
+    .agent-row.working { background:#052e16 !important; border-left:3px solid var(--green) !important; animation:rowPulse 1.5s infinite; }
+    @keyframes rowPulse { 0%,100%{background:#052e16} 50%{background:#0a3d1a} }
+    .agent-avatar { width:28px; height:28px; border-radius:4px; display:flex; align-items:center; justify-content:center; font-size:14px; flex-shrink:0; }
+    .agent-row-info { flex:1; min-width:0; }
+    .agent-row-name { font-size:9px; font-weight:700; color:#e2e8f0; letter-spacing:.5px; }
+    .agent-row-status { font-size:8px; margin-top:2px; }
+    .status-working { color:var(--green); }
+    .status-idle    { color:var(--amber); }
+    .status-dot { width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+    .dot-green { background:var(--green); box-shadow:0 0 6px var(--green); animation:pulse 2s infinite; }
+    .dot-amber { background:var(--amber); }
+    .dot-red   { background:var(--red); }
+    @keyframes pulse { 0%,100%{box-shadow:0 0 4px var(--green)} 50%{box-shadow:0 0 12px var(--green)} }
+
+    /* MAIN */
+    .main { flex:1; overflow-y:auto; padding:14px; display:flex; flex-direction:column; gap:12px; }
+
+    /* API KEY BOX */
+    .apikey-box { background:#0c1124; border:1px solid #1e3a5f; border-radius:6px; padding:10px 14px; display:flex; align-items:center; gap:10px; }
+    .apikey-label { font-size:9px; color:#60a5fa; white-space:nowrap; flex-shrink:0; }
+    .apikey-input {
+      flex:1; background:#070b14; border:1px solid #1e3a5f; border-radius:4px;
+      color:#e2e8f0; padding:7px 10px; font-size:11px; outline:none; font-family:monospace;
+    }
+    .apikey-input:focus { border-color:#3b82f6; }
+    .apikey-input::placeholder { color:#1e3a5f; }
+    .apikey-save { background:#1d4ed8; color:white; border:none; border-radius:4px; padding:7px 12px; font-size:8px; cursor:pointer; font-family:'Press Start 2P',monospace; white-space:nowrap; }
+    .apikey-save:hover { background:#2563eb; }
+
+    /* ORCHESTRATOR INPUT */
+    .orch-box { background:var(--panel); border:2px solid #4f46e5; border-radius:8px; padding:14px 16px; }
+    .orch-box-title { font-size:9px; color:#818cf8; letter-spacing:1px; margin-bottom:10px; display:flex; align-items:center; gap:8px; }
+    .orch-input-row { display:flex; gap:8px; }
+    .orch-input {
+      flex:1; background:#0d1525; border:1px solid #4f46e5; border-radius:5px;
+      color:#e2e8f0; padding:10px 14px; font-size:12px; outline:none;
+      transition:border-color .2s;
+    }
+    .orch-input:focus { border-color:#818cf8; box-shadow:0 0 0 2px #4f46e522; }
+    .orch-input::placeholder { color:#334155; }
+    .orch-btn {
+      background:#4f46e5; color:white; border:none; border-radius:5px;
+      padding:10px 18px; font-size:9px; cursor:pointer; white-space:nowrap;
+      font-family:'Press Start 2P',monospace; transition:background .2s;
+    }
+    .orch-btn:hover:not(:disabled) { background:#6366f1; }
+    .orch-btn:disabled { background:#1e1b4b; color:#475569; cursor:not-allowed; }
+
+    /* LOG */
+    .log-box { background:#070b14; border:1px solid var(--border); border-radius:5px; padding:10px 12px; max-height:130px; overflow-y:auto; margin-top:10px; }
+    .log-line { font-size:10px; padding:3px 0; border-bottom:1px solid #0d1525; display:flex; align-items:flex-start; gap:8px; }
+    .log-line:last-child { border-bottom:none; }
+    .log-time  { color:#334155; flex-shrink:0; font-size:9px; margin-top:1px; }
+    .log-orch  { color:#818cf8; }
+    .log-agent { color:#22c55e; }
+    .log-info  { color:#64748b; }
+    .log-done  { color:#f59e0b; }
+    .log-error { color:#ef4444; }
+
+    /* OFFICE GRID */
+    .office-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+    .room-orchestrator { grid-column:1/-1; }
+    .room { background:var(--panel); border:2px solid var(--border); border-radius:6px; overflow:hidden; transition:border-color .3s, transform .2s, box-shadow .3s; }
+    .room:hover { border-color:#2d4a6e; transform:translateY(-2px); }
+    .room.active-room { border-color:var(--green) !important; box-shadow:0 0 20px rgba(34,197,94,.25); animation:roomGlow 1.5s infinite; }
+    .room.done-room   { border-color:var(--amber) !important; box-shadow:0 0 10px rgba(245,158,11,.15); }
+    @keyframes roomGlow { 0%,100%{box-shadow:0 0 15px rgba(34,197,94,.2)} 50%{box-shadow:0 0 30px rgba(34,197,94,.4)} }
+
+    .room-header { background:#0d1525; padding:6px 10px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); }
+    .room-name   { font-size:8px; color:#94a3b8; letter-spacing:1px; }
+    .room-dot    { width:8px; height:8px; border-radius:50%; }
+
+    .room-body { padding:12px; display:flex; align-items:center; gap:12px; }
+    .pixel-char { font-size:34px; line-height:1; flex-shrink:0; transition:transform .3s; }
+    .active-room .pixel-char { animation:charBounce .6s infinite alternate; }
+    @keyframes charBounce { from{transform:translateY(0)} to{transform:translateY(-5px)} }
+    .room-orchestrator .pixel-char { font-size:44px; }
+
+    .room-info { flex:1; }
+    .room-agent-name { font-size:11px; font-weight:700; color:#f1f5f9; margin-bottom:3px; }
+    .room-agent-role { font-size:9px; color:#64748b; margin-bottom:8px; }
+    .room-tags { display:flex; flex-wrap:wrap; gap:4px; }
+    .tag { font-size:8px; padding:2px 6px; border-radius:3px; border:1px solid; }
+    .tag-blue   { background:#1e3a5f; color:#60a5fa; border-color:#2563eb44; }
+    .tag-green  { background:#14532d; color:#4ade80; border-color:#16a34a44; }
+    .tag-purple { background:#3b0764; color:#c084fc; border-color:#7c3aed44; }
+    .tag-amber  { background:#451a03; color:#fbbf24; border-color:#d9770644; }
+    .tag-red    { background:#450a0a; color:#f87171; border-color:#dc262644; }
+    .tag-cyan   { background:#083344; color:#22d3ee; border-color:#0891b244; }
+    .tag-pink   { background:#4a044e; color:#f0abfc; border-color:#a21caf44; }
+
+    .status-badge { display:inline-flex; align-items:center; gap:4px; font-size:8px; padding:3px 8px; border-radius:3px; margin-bottom:8px; }
+    .badge-working  { background:#052e16; color:var(--green); border:1px solid #16a34a44; }
+    .badge-idle     { background:#451a03; color:var(--amber); border:1px solid #d9770644; }
+    .badge-pending  { background:#1e1b4b; color:#818cf8; border:1px solid #4f46e544; }
+    .badge-assigned { background:#0c4a6e; color:#38bdf8; border:1px solid #0369a144; animation:badgePulse 1s infinite; }
+    @keyframes badgePulse { 0%,100%{opacity:1} 50%{opacity:.6} }
+
+    .room-orchestrator .room-body { padding:16px 18px; }
+    .room-orchestrator .room-agent-name { font-size:13px; }
+    .orchestrator-desc { font-size:11px; color:#94a3b8; margin-top:6px; line-height:1.6; max-width:600px; }
+
+    /* CURRENT TASK BANNER */
+    .task-banner { display:none; background:#0c4a6e22; border:1px solid #0369a1; border-radius:5px; padding:8px 12px; margin-top:8px; font-size:10px; color:#38bdf8; }
+    .task-banner.visible { display:block; }
+
+    /* RESULTS PANEL */
+    .results-section { display:none; flex-direction:column; gap:10px; }
+    .results-section.visible { display:flex; }
+    .results-title { font-size:9px; color:#818cf8; letter-spacing:1px; margin-bottom:4px; display:flex; align-items:center; gap:6px; }
+    .result-card { background:#0d1525; border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+    .result-card-header { background:#070b14; padding:8px 12px; display:flex; align-items:center; gap:8px; border-bottom:1px solid var(--border); }
+    .result-card-name { font-size:9px; color:#94a3b8; font-weight:700; }
+    .result-card-body { padding:12px 14px; font-size:12px; line-height:1.7; color:#cbd5e1; white-space:pre-wrap; max-height:280px; overflow-y:auto; }
+    .result-card-body.streaming::after { content:'▋'; animation:blink .7s infinite; }
+    @keyframes blink { 0%,50%{opacity:1} 51%,100%{opacity:0} }
+    .result-streaming { border-color:#4f46e5 !important; box-shadow:0 0 12px #4f46e522; }
+    .result-done { border-color:#f59e0b44 !important; }
+
+    /* STATS */
+    .stats-row { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+    .stat-card { background:var(--panel); border:1px solid var(--border); border-radius:6px; padding:12px; text-align:center; }
+    .stat-val  { font-size:22px; font-weight:800; }
+    .stat-label { font-size:8px; color:#475569; margin-top:4px; letter-spacing:.5px; }
+
+    ::-webkit-scrollbar { width:5px; }
+    ::-webkit-scrollbar-track { background:#070b14; }
+    ::-webkit-scrollbar-thumb { background:#1f2d45; border-radius:3px; }
+
+    body::after { content:''; position:fixed; inset:0; background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.03) 2px,rgba(0,0,0,.03) 4px); pointer-events:none; z-index:9999; }
+    .room.pending { opacity:.6; filter:grayscale(.4); }
+
+    /* PLAN BOX */
+    .plan-box { background:#0c1124; border:1px solid #1e3a5f; border-radius:5px; padding:8px 12px; font-size:11px; color:#93c5fd; line-height:1.5; margin-top:8px; display:none; }
+    .plan-box.visible { display:block; }
+    .plan-agents { margin-top:4px; display:flex; gap:6px; flex-wrap:wrap; }
+    .plan-agent-chip { background:#1e3a5f; color:#60a5fa; font-size:9px; padding:2px 8px; border-radius:20px; border:1px solid #2563eb44; }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div style="font-size:22px">🗺️</div>
+    <div><div class="px logo">MEMORA HQ <span>AGENT COLONY v2.0 — REAL AI</span></div></div>
+  </div>
+  <div class="topbar-right">
+    <span>TEAM: 7 AGENTS</span>
+    <span id="readyCount" style="color:#22c55e">● 2 READY</span>
+    <span id="workingCount" style="display:none; color:#38bdf8; align-items:center; gap:4px;">● <span id="wNum">0</span> WORKING</span>
+    <div class="api-status api-no px" id="apiStatus">NO API KEY</div>
+    <span class="px clock" id="clock">00:00:00</span>
+  </div>
+</div>
+
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-title px">TEAM STATUS</div>
+    <div class="sidebar-filters">
+      <button class="filter-btn active px" onclick="filterAgents('all',this)">ALL</button>
+      <button class="filter-btn px" onclick="filterAgents('ready',this)">READY</button>
+      <button class="filter-btn px" onclick="filterAgents('pending',this)">WAIT</button>
+    </div>
+    <div class="agent-list" id="agentList"></div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- API KEY -->
+    <div class="apikey-box">
+      <span class="apikey-label px">🔑 API KEY</span>
+      <input class="apikey-input" id="apiKeyInput" type="password" placeholder="sk-ant-api..." />
+      <button class="apikey-save px" onclick="saveApiKey()">SAVE</button>
+    </div>
+
+    <!-- ORCHESTRATOR INPUT -->
+    <div class="orch-box">
+      <div class="orch-box-title px">
+        <span style="font-size:14px">👑</span>
+        AUFGABE AN ORCHESTRATOR SENDEN (ECHTE KI)
+      </div>
+      <div class="orch-input-row">
+        <input class="orch-input" id="taskInput" placeholder="z.B.: Baue eine Suchfunktion für Trips mit Tag-Filter..." />
+        <button class="orch-btn" id="sendBtn" onclick="sendToOrchestrator()">▶ SENDEN</button>
+      </div>
+      <div class="plan-box" id="planBox">
+        <span id="planText"></span>
+        <div class="plan-agents" id="planAgents"></div>
+      </div>
+      <div class="log-box" id="logBox">
+        <div class="log-line log-info"><span class="log-time">--:--</span><span>Server verbinden: <strong>npm start</strong> im agent-dashboard Ordner ausführen</span></div>
+      </div>
+    </div>
+
+    <!-- RESULTS (erscheint nach Task) -->
+    <div class="results-section" id="resultsSection">
+      <div class="results-title px">
+        <span>📋</span> AGENT ERGEBNISSE — ECHTE AI ANTWORTEN
+      </div>
+      <div id="resultsContainer"></div>
+    </div>
+
+    <!-- OFFICE GRID -->
+    <div class="office-grid">
+
+      <!-- ORCHESTRATOR -->
+      <div class="room room-orchestrator" id="room-orchestrator">
+        <div class="room-header">
+          <span class="room-name px">⭐ CONFERENCE ROOM — ORCHESTRATOR HQ</span>
+          <div class="room-dot dot-green" id="dot-orchestrator"></div>
+        </div>
+        <div class="room-body">
+          <div class="pixel-char">👑</div>
+          <div class="room-info">
+            <div class="status-badge badge-working" id="badge-orchestrator">● ACTIVE</div>
+            <div class="room-agent-name">Orchestrator</div>
+            <div class="room-agent-role">Chef des Agent Teams — koordiniert alle Agenten</div>
+            <div class="orchestrator-desc">Analysiert Aufgaben mit Claude AI, plant die Reihenfolge und delegiert an die richtigen Agenten. Der einzige Agent der alle anderen ansprechen darf.</div>
+            <div class="task-banner" id="task-banner"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FRONTEND -->
+      <div class="room" id="room-frontend-agent">
+        <div class="room-header">
+          <span class="room-name px">🎨 DESIGN STUDIO</span>
+          <div class="room-dot dot-green" id="dot-frontend-agent"></div>
+        </div>
+        <div class="room-body">
+          <div class="pixel-char">🧑‍🎨</div>
+          <div class="room-info">
+            <div class="status-badge badge-working" id="badge-frontend-agent">● READY</div>
+            <div class="room-agent-name">FrontendAgent</div>
+            <div class="room-agent-role">React · TypeScript · UX/Design</div>
+            <div class="room-tags">
+              <span class="tag tag-blue">React 18</span>
+              <span class="tag tag-cyan">Tailwind v4</span>
+              <span class="tag tag-purple">shadcn/ui</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BACKEND -->
+      <div class="room pending" id="room-backend-agent">
+        <div class="room-header">
+          <span class="room-name px">🖥️ SERVER ROOM</span>
+          <div class="room-dot dot-amber" id="dot-backend-agent"></div>
+        </div>
+        <div class="room-body">
+          <div class="pixel-char">🧑‍💻</div>
+          <div class="room-info">
+            <div class="status-badge badge-pending" id="badge-backend-agent">⏳ PENDING</div>
+            <div class="room-agent-name">BackendAgent</div>
+            <div class="room-agent-role">Supabase · Edge Functions · API</div>
+            <div class="room-tags">
+              <span class="tag tag-green">Supabase</span>
+              <span class="tag tag-blue">Edge Functions</span>
+              <span class="tag tag-amber">REST API</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DEVOPS -->
+      <div class="room" id="room-devops-agent">
+        <div class="room-header">
+          <span class="room-name px">⚙️ ENGINE ROOM</span>
+          <div class="room-dot dot-green" id="dot-devops-agent"></div>
+        </div>
+        <div class="room-body">
+          <div class="pixel-char">🧑‍🔧</div>
+          <div class="room-info">
+            <div class="status-badge badge-working" id="badge-devops-agent">● READY</div>
+            <div class="room-agent-name">DevOpsAgent</div>
+            <div class="room-agent-role">Vite · pnpm · Supabase Deploy</div>
+            <div class="room-tags">
+              <span class="tag tag-amber">Vite 6</span>
+              <span class="tag tag-green">pnpm</span>
+              <span class="tag tag-cyan">Supabase CLI</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TESTING -->
+      <div class="room pending" id="room-testing-agent">
+        <div class="room-header">
+          <span class="room-name px">🧪 TESTING LAB</span>
+          <div class="room-dot dot-amber" id="dot-testing-agent"></div>
+        </div>
+        <div class="room-body">
+          <div class="pixel-char">🧑‍🔬</div>
+          <div class="room-info">
+            <div class="status-badge badge-pending" id="badge-testing-agent">⏳ PENDING</div>
+            <div class="room-agent-name">TestingAgent</div>
+            <div class="room-agent-role">Unit Tests · Integration Tests</div>
+            <div class="room-tags">
+              <span class="tag tag-green">Vitest</span>
+              <span class="tag tag-blue">Testing Library</span>
+              <span class="tag tag-purple">E2E</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SECURITY -->
+      <div class="room pending" id="room-security-agent">
+        <div class="room-header">
+          <span class="room-name px">🔒 SECURITY BUNKER</span>
+          <div class="room-dot dot-amber" id="dot-security-agent"></div>
+        </div>
+        <div class="room-body">
+          <div class="pixel-char">🧑‍✈️</div>
+          <div class="room-info">
+            <div class="status-badge badge-pending" id="badge-security-agent">⏳ PENDING</div>
+            <div class="room-agent-name">SecurityAgent</div>
+            <div class="room-agent-role">Auth · RLS · Input Validation</div>
+            <div class="room-tags">
+              <span class="tag tag-red">Auth</span>
+              <span class="tag tag-amber">RLS Policies</span>
+              <span class="tag tag-blue">Validation</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DOCS -->
+      <div class="room pending" id="room-docs-agent">
+        <div class="room-header">
+          <span class="room-name px">📚 LIBRARY</span>
+          <div class="room-dot dot-amber" id="dot-docs-agent"></div>
+        </div>
+        <div class="room-body">
+          <div class="pixel-char">🧑‍📚</div>
+          <div class="room-info">
+            <div class="status-badge badge-pending" id="badge-docs-agent">⏳ PENDING</div>
+            <div class="room-agent-name">DocsAgent</div>
+            <div class="room-agent-role">README · ARCHITECTURE.md · API Docs</div>
+            <div class="room-tags">
+              <span class="tag tag-blue">README</span>
+              <span class="tag tag-purple">Architecture</span>
+              <span class="tag tag-green">API Docs</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- STATS -->
+    <div class="stats-row">
+      <div class="stat-card"><div class="stat-val" style="color:#22c55e">7</div><div class="stat-label">TOTAL AGENTS</div></div>
+      <div class="stat-card"><div class="stat-val" style="color:#22c55e" id="statReady">2</div><div class="stat-label">READY</div></div>
+      <div class="stat-card"><div class="stat-val" style="color:#38bdf8" id="statWorking">0</div><div class="stat-label">WORKING</div></div>
+      <div class="stat-card"><div class="stat-val" style="color:#818cf8" id="statDone">0</div><div class="stat-label">TASKS DONE</div></div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// ── Clock ──
+function tick() {
+  const n = new Date();
+  document.getElementById('clock').textContent = n.toLocaleTimeString('de-DE',{hour12:false});
+}
+tick(); setInterval(tick,1000);
+
+// ── API Key ──
+let apiKey = localStorage.getItem('memora_api_key') || '';
+if (apiKey) {
+  document.getElementById('apiKeyInput').value = apiKey;
+  setApiStatus(true);
+}
+
+function saveApiKey() {
+  apiKey = document.getElementById('apiKeyInput').value.trim();
+  if (!apiKey) { setApiStatus(false); return; }
+  localStorage.setItem('memora_api_key', apiKey);
+  setApiStatus(true);
+  addLog('🔑 API Key gespeichert', 'log-agent');
+}
+
+function setApiStatus(ok) {
+  const el = document.getElementById('apiStatus');
+  el.className = 'api-status px ' + (ok ? 'api-ok' : 'api-no');
+  el.textContent = ok ? '● API READY' : 'NO API KEY';
+}
+
+// ── Agent config (IDs = .md Dateiname ohne .md) ──
+const AGENTS = {
+  orchestrator:   { name:'Orchestrator',  emoji:'👑', owner:'Team',  baseStatus:'ready' },
+  'frontend-agent': { name:'FrontendAgent', emoji:'🧑‍🎨', owner:'Baha', baseStatus:'ready' },
+  'backend-agent':  { name:'BackendAgent',  emoji:'🧑‍💻', owner:'?',    baseStatus:'pending' },
+  'devops-agent':   { name:'DevOpsAgent',   emoji:'🧑‍🔧', owner:'Baha', baseStatus:'ready' },
+  'testing-agent':  { name:'TestingAgent',  emoji:'🧑‍🔬', owner:'?',    baseStatus:'pending' },
+  'security-agent': { name:'SecurityAgent', emoji:'🧑‍✈️', owner:'?',    baseStatus:'pending' },
+  'docs-agent':     { name:'DocsAgent',     emoji:'🧑‍📚', owner:'?',    baseStatus:'pending' },
+};
+
+let tasksDone = 0;
+let currentStatus = {};
+Object.keys(AGENTS).forEach(id => { currentStatus[id] = AGENTS[id].baseStatus; });
+
+// ── Render sidebar ──
+function renderSidebar(filter='all') {
+  const list = document.getElementById('agentList');
+  list.innerHTML = '';
+  Object.entries(AGENTS).forEach(([id, a]) => {
+    const st = currentStatus[id];
+    if (filter === 'ready'   && st !== 'ready' && st !== 'working') return;
+    if (filter === 'pending' && st !== 'pending') return;
+
+    const isWorking = st === 'working';
+    const isDone    = st === 'done';
+    const statusLabel = isWorking ? '[WORKING]' : isDone ? '[DONE]' : st === 'ready' ? '[READY]' : '[PENDING]';
+    const statusClass = isWorking ? 'status-working' : isDone ? 'status-done' : st === 'ready' ? 'status-working' : 'status-idle';
+    const dotClass = isWorking ? 'dot-green' : isDone ? 'dot-amber' : st === 'ready' ? 'dot-green' : 'dot-amber';
+
+    const div = document.createElement('div');
+    div.className = isWorking ? 'agent-row working' : 'agent-row';
+    div.innerHTML = `
+      <div class="agent-avatar" style="background:#0d1525;border:1px solid #1f2d45">${a.emoji}</div>
+      <div class="agent-row-info">
+        <div class="agent-row-name">${a.name}</div>
+        <div class="agent-row-status ${statusClass}" style="font-size:8px">${statusLabel} <span style="color:#334155">· ${a.owner}</span></div>
+      </div>
+      <div class="status-dot ${dotClass}"></div>`;
+    div.onclick = () => document.getElementById('room-' + id)?.scrollIntoView({behavior:'smooth',block:'center'});
+    list.appendChild(div);
+  });
+}
+renderSidebar();
+
+let currentFilter = 'all';
+function filterAgents(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderSidebar(f);
+}
+
+// ── Log ──
+function addLog(text, cls='log-info') {
+  const box = document.getElementById('logBox');
+  const now = new Date().toLocaleTimeString('de-DE',{hour12:false});
+  const line = document.createElement('div');
+  line.className = `log-line ${cls}`;
+  line.innerHTML = `<span class="log-time">${now}</span><span>${text}</span>`;
+  box.appendChild(line);
+  box.scrollTop = box.scrollHeight;
+}
+function clearLog() { document.getElementById('logBox').innerHTML = ''; }
+
+// ── Room helpers ──
+function setRoomActive(id) {
+  const room  = document.getElementById('room-' + id);
+  const badge = document.getElementById('badge-' + id);
+  const dot   = document.getElementById('dot-' + id);
+  if (!room) return;
+  room.classList.remove('pending','done-room');
+  room.classList.add('active-room');
+  if (badge) { badge.className = 'status-badge badge-assigned'; badge.textContent = '⚡ WORKING'; }
+  if (dot)   { dot.className = 'room-dot dot-green'; }
+}
+
+function setRoomDone(id) {
+  const room  = document.getElementById('room-' + id);
+  const badge = document.getElementById('badge-' + id);
+  const dot   = document.getElementById('dot-' + id);
+  if (!room) return;
+  room.classList.remove('active-room');
+  room.classList.add('done-room');
+  if (badge) { badge.className = 'status-badge badge-idle'; badge.textContent = '✅ DONE'; }
+  if (dot)   { dot.className = 'room-dot dot-amber'; }
+}
+
+function setRoomError(id) {
+  const room  = document.getElementById('room-' + id);
+  const badge = document.getElementById('badge-' + id);
+  if (!room) return;
+  room.classList.remove('active-room');
+  if (badge) { badge.className = 'status-badge'; badge.style = 'background:#450a0a;color:#f87171;border:1px solid #dc262644'; badge.textContent = '⚠ ERROR'; }
+}
+
+function resetAllRooms() {
+  Object.entries(AGENTS).forEach(([id, a]) => {
+    const room  = document.getElementById('room-' + id);
+    const badge = document.getElementById('badge-' + id);
+    const dot   = document.getElementById('dot-' + id);
+    if (!room) return;
+    const isPending = a.baseStatus === 'pending';
+    room.className = 'room' + (id === 'orchestrator' ? ' room-orchestrator' : '') + (isPending ? ' pending' : '');
+    if (badge) {
+      badge.style = '';
+      badge.className = isPending ? 'status-badge badge-pending' : 'status-badge badge-working';
+      badge.textContent = isPending ? '⏳ PENDING' : (id === 'orchestrator' ? '● ACTIVE' : '● READY');
+    }
+    if (dot) dot.className = 'room-dot ' + (isPending ? 'dot-amber' : 'dot-green');
+    currentStatus[id] = a.baseStatus;
+  });
+  document.getElementById('task-banner').classList.remove('visible');
+  document.getElementById('planBox').classList.remove('visible');
+  renderSidebar(currentFilter);
+}
+
+// ── Results panel ──
+function showResultsSection() {
+  const s = document.getElementById('resultsSection');
+  s.classList.add('visible');
+  document.getElementById('resultsContainer').innerHTML = '';
+}
+
+function createResultCard(agentId) {
+  const a = AGENTS[agentId] || { name: agentId, emoji: '🤖' };
+  const card = document.createElement('div');
+  card.id = 'result-' + agentId;
+  card.className = 'result-card result-streaming';
+  card.innerHTML = `
+    <div class="result-card-header">
+      <span style="font-size:16px">${a.emoji}</span>
+      <span class="result-card-name">${a.name.toUpperCase()}</span>
+      <span style="font-size:9px;color:#334155;margin-left:auto">STREAMING...</span>
+    </div>
+    <div class="result-card-body streaming" id="body-${agentId}"></div>`;
+  document.getElementById('resultsContainer').appendChild(card);
+  return card;
+}
+
+function appendToResultCard(agentId, chunk) {
+  const body = document.getElementById('body-' + agentId);
+  if (body) {
+    body.textContent += chunk;
+    body.scrollTop = body.scrollHeight;
+  }
+}
+
+function finishResultCard(agentId) {
+  const card = document.getElementById('result-' + agentId);
+  const body = document.getElementById('body-' + agentId);
+  if (card) {
+    card.classList.remove('result-streaming');
+    card.classList.add('result-done');
+    const header = card.querySelector('.result-card-header span:last-child');
+    if (header) { header.textContent = '✅ FERTIG'; header.style.color = '#f59e0b'; }
+  }
+  if (body) body.classList.remove('streaming');
+}
+
+// ── Send to REAL Orchestrator via Server-Sent Events ──
+async function sendToOrchestrator() {
+  if (!apiKey) {
+    addLog('⚠ Bitte zuerst API Key eingeben und speichern!', 'log-error');
+    document.getElementById('apiKeyInput').focus();
+    return;
+  }
+
+  const task = document.getElementById('taskInput').value.trim();
+  if (!task) return;
+
+  const btn = document.getElementById('sendBtn');
+  btn.disabled = true;
+  clearLog();
+  resetAllRooms();
+  showResultsSection();
+
+  const banner = document.getElementById('task-banner');
+  banner.textContent = '📋 ' + task;
+  banner.classList.add('visible');
+
+  let workingCount = 0;
+
+  // Orchestrator starts
+  addLog('👑 Orchestrator: Aufgabe empfangen → Echte KI wird gestartet...', 'log-orch');
+  setRoomActive('orchestrator');
+  currentStatus['orchestrator'] = 'working';
+  renderSidebar(currentFilter);
+
+  try {
+    const response = await fetch('http://localhost:4321/api/task', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ task, apiKey }),
+    });
+
+    if (!response.ok) {
+      const err = await response.json();
+      addLog(`⚠ Server Fehler: ${err.error}`, 'log-error');
+      setRoomError('orchestrator');
+      btn.disabled = false;
+      return;
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const parts = buffer.split('\n\n');
+      buffer = parts.pop(); // keep incomplete
+
+      for (const part of parts) {
+        if (!part.trim()) continue;
+        const lines = part.split('\n');
+        let eventName = 'message', data = '';
+
+        for (const line of lines) {
+          if (line.startsWith('event: ')) eventName = line.slice(7);
+          if (line.startsWith('data: '))  data = line.slice(6);
+        }
+
+        if (!data) continue;
+        let payload;
+        try { payload = JSON.parse(data); } catch { continue; }
+
+        // ── Handle events ──
+        if (eventName === 'status') {
+          const { agent, status, message } = payload;
+          const emoji = AGENTS[agent]?.emoji || '🤖';
+
+          if (status === 'working') {
+            addLog(`${emoji} ${agent}: ${message}`, 'log-agent');
+            setRoomActive(agent);
+            currentStatus[agent] = 'working';
+            workingCount++;
+            document.getElementById('workingCount').style.display = 'flex';
+            document.getElementById('wNum').textContent = workingCount;
+            document.getElementById('statWorking').textContent = workingCount;
+          } else if (status === 'done') {
+            addLog(`✅ ${agent}: ${message}`, 'log-done');
+            setRoomDone(agent);
+            currentStatus[agent] = 'done';
+            workingCount = Math.max(0, workingCount - 1);
+            document.getElementById('wNum').textContent = workingCount;
+            document.getElementById('statWorking').textContent = workingCount;
+          } else if (status === 'error') {
+            addLog(`⚠ ${agent}: ${message}`, 'log-error');
+            setRoomError(agent);
+            currentStatus[agent] = 'ready';
+            workingCount = Math.max(0, workingCount - 1);
+          }
+          renderSidebar(currentFilter);
+        }
+
+        else if (eventName === 'orchestrator_result') {
+          const { plan, agents } = payload;
+          const planBox = document.getElementById('planBox');
+          document.getElementById('planText').textContent = '📋 ' + plan;
+          const chipsEl = document.getElementById('planAgents');
+          chipsEl.innerHTML = agents.map(a =>
+            `<span class="plan-agent-chip">${AGENTS[a]?.emoji || '🤖'} ${AGENTS[a]?.name || a}</span>`
+          ).join('');
+          planBox.classList.add('visible');
+          addLog(`👑 Plan: ${plan}`, 'log-orch');
+          addLog(`👑 Delegiert an: ${agents.join(', ')}`, 'log-orch');
+        }
+
+        else if (eventName === 'agent_chunk') {
+          const { agent, chunk } = payload;
+          let card = document.getElementById('result-' + agent);
+          if (!card) createResultCard(agent);
+          appendToResultCard(agent, chunk);
+        }
+
+        else if (eventName === 'agent_done') {
+          const { agent } = payload;
+          finishResultCard(agent);
+        }
+
+        else if (eventName === 'done') {
+          addLog('🏁 Alle Agenten fertig — Aufgabe abgeschlossen ✅', 'log-orch');
+          document.getElementById('workingCount').style.display = 'none';
+          tasksDone++;
+          document.getElementById('statDone').textContent = tasksDone;
+          btn.disabled = false;
+          document.getElementById('taskInput').value = '';
+        }
+
+        else if (eventName === 'error') {
+          addLog(`⚠ Fehler: ${payload.message}`, 'log-error');
+          btn.disabled = false;
+        }
+      }
+    }
+  } catch (err) {
+    addLog(`⚠ Verbindung fehlgeschlagen: ${err.message}`, 'log-error');
+    addLog('💡 Server starten: cd agent-dashboard && npm install && npm start', 'log-info');
+    setRoomError('orchestrator');
+    currentStatus['orchestrator'] = 'ready';
+    btn.disabled = false;
+  }
+}
+
+// Enter key
+document.getElementById('taskInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') sendToOrchestrator();
+});
+
+// Check server health on load
+fetch('http://localhost:4321/api/health')
+  .then(r => r.json())
+  .then(d => {
+    addLog(`✅ Server online — Agenten geladen: ${d.agents.join(', ')}`, 'log-agent');
+    // Mark agents that have .md files as ready
+    d.agents.forEach(name => {
+      const id = name; // e.g. "frontend-agent"
+      if (AGENTS[id] && AGENTS[id].baseStatus === 'pending') {
+        AGENTS[id].baseStatus = 'ready';
+        currentStatus[id] = 'ready';
+      }
+    });
+    renderSidebar(currentFilter);
+  })
+  .catch(() => {
+    addLog('⚠ Server nicht erreichbar — starte: npm start im agent-dashboard Ordner', 'log-error');
+  });
+</script>
+</body>
+</html>

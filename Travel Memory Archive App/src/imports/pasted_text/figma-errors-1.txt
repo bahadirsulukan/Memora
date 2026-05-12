@@ -1,0 +1,60 @@
+[Error] Failed to load resource: Es wurde kein Server mit dem angegebenen Hostnamen gefunden. (font-files, line 0)
+[Error] Failed to load resource: Es wurde kein Server mit dem angegebenen Hostnamen gefunden. (version, line 0)
+[Error] Failed to load resource: Es wurde kein Server mit dem angegebenen Hostnamen gefunden. (can-open-url, line 0)
+[Error] Failed to load resource: Es wurde kein Server mit dem angegebenen Hostnamen gefunden. (get-languages, line 0)
+[Error] Failed to load resource: Es wurde kein Server mit dem angegebenen Hostnamen gefunden. (version, line 0)
+[Error] Cross-origin redirection to https://i2.wp.com/s3-alpha.figma.com/static/user_b_v2.png?ssl=1 denied by Cross-Origin Resource Sharing policy: Origin https://www.figma.com is not allowed by Access-Control-Allow-Origin. Status code: 302
+[Error] Cannot load image https://www.gravatar.com/avatar/606a17917abf79b8976b298a23a9f6e9?size=240&default=https%3A%2F%2Fs3-alpha.figma.com%2Fstatic%2Fuser_b_v2.png?c=1 due to access control checks. (x2)
+[Error] Failed to load resource: Cross-origin redirection to https://i2.wp.com/s3-alpha.figma.com/static/user_b_v2.png?ssl=1 denied by Cross-Origin Resource Sharing policy: Origin https://www.figma.com is not allowed by Access-Control-Allow-Origin. Status code: 302 (606a17917abf79b8976b298a23a9f6e9, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 () (scopes, line 0)
+[Error] Failed to load resource: the server responded with a status of 404 () (cached_preview_urls, line 0)
+[Error] WebSocket connection to 'wss://ta-01kn5st1vv41yzx2p6ttg3hg50-1380-2qsc6oa4046gnrtrfvzp53dm4.makeproxy-m.figma.site/?token=MGjsawfllWoP' failed: The network connection was lost.
+[Error] 🚫 No access token found
+	r (code_components_preview_iframe-c80ab23917594aa8.min.js.br:17:102316)
+	error (code_components_preview_iframe-c80ab23917594aa8.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:36)
+[Error] ❌ Error fetching visits: – Error: Not authenticated
+Error: Not authenticated
+	r (code_components_preview_iframe-c80ab23917594aa8.min.js.br:17:102316)
+	error (code_components_preview_iframe-c80ab23917594aa8.min.js.br:90:31385)
+	(anonyme Funktion) (VisitsContext.tsx:87)
+[Error] Blocked a frame with origin "https://7cbb75c2-93b2-4c4a-ae60-3180c5dc8f1e-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Blocked a frame with origin "https://7cbb75c2-93b2-4c4a-ae60-3180c5dc8f1e-v2-figmaiframepreview.figma.site" from accessing a frame with origin "https://www.figma.com". Protocols, domains, and ports must match.
+[Error] Failed to load resource: the server responded with a status of 401 () (visits, line 0)
+[Error] 🚫 Unauthorized request
+	r (code_components_preview_iframe-c80ab23917594aa8.min.js.br:17:102316)
+	error (code_components_preview_iframe-c80ab23917594aa8.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:50)
+[Error] Endpoint: – "/visits"
+	r (code_components_preview_iframe-c80ab23917594aa8.min.js.br:17:102316)
+	error (code_components_preview_iframe-c80ab23917594aa8.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:51)
+[Error] Token (first 20 chars): – "eyJhbGciOiJFUzI1NiIs"
+	r (code_components_preview_iframe-c80ab23917594aa8.min.js.br:17:102316)
+	error (code_components_preview_iframe-c80ab23917594aa8.min.js.br:90:31385)
+	authenticatedFetch (supabase-client.ts:52)
+[Error] ❌ Backend error: – Object
+Object
+	r (code_components_preview_iframe-c80ab23917594aa8.min.js.br:17:102316)
+	error (code_components_preview_iframe-c80ab23917594aa8.min.js.br:90:31385)
+	(anonyme Funktion) (VisitsContext.tsx:123)
+[Error] ❌ Error adding visit:
+Error: Failed to add visit
+(anonyme Funktion) — VisitsContext.tsx:196
+	r (code_components_preview_iframe-c80ab23917594aa8.min.js.br:17:102316)
+	error (code_components_preview_iframe-c80ab23917594aa8.min.js.br:90:31385)
+	(anonyme Funktion) (VisitsContext.tsx:137)
+> Ausgewähltes Element
+< <button type="submit" class="w-full bg-blue-500 text-white py-4 rounded-xl font-semibold text-lg hover:bg-blue-600 transition-colors shadow-lg disabled:opacity-50 disabled:cursor-not-allowed" data-fg-bxi96="4.38:57.2343:/src/app/screens/AddVisitScreen.tsx:357:9:12588:320:e:button:x" data-fgid-bxi96=":r67:">Save Trip</button>
+[Error] Source Map-Ladefehler (x11)
+[Error] Failed to load resource: the server responded with a status of 403 (Forbidden) (@supabase_supabase-js.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 (Forbidden) (recharts.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 (Forbidden) (react_jsx_dev_runtime.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 (Forbidden) (chunk-NBJOCWSM.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 (Forbidden) (sonner.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 (Forbidden) (motion_react.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 (Forbidden) (lucide-react.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 (Forbidden) (react_base.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 (Forbidden) (react-globe__gl.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 (Forbidden) (date-fns.js.map, line 0)
+[Error] Failed to load resource: the server responded with a status of 403 (Forbidden) (react-router.js.map, line 0)
