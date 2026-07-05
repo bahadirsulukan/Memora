@@ -1,7 +1,7 @@
 
   # Travel Memory Archive App
 
-  This is a code bundle for Travel Memory Archive App. The original project is available at https://www.figma.com/design/mAdIlSG7qvdNiQ4VFCw7OS/Travel-Memory-Archive-App.
+  This is a code bundle for Travel Memory Archive App. The original project is available at
 
   ## Running the code
 
